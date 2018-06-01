@@ -2,9 +2,10 @@ import json
 import logging.config
 import os
 
-report_logger = logging.getLogger('eth_report')
+report_logger = None
 
 def setup_logging(default_path = "logging.json", default_level = logging.DEBUG, env_key = "LOG_CFG"):
+    global report_logger
     path = default_path
     value = os.getenv(env_key,None)
     if value:
@@ -13,8 +14,11 @@ def setup_logging(default_path = "logging.json", default_level = logging.DEBUG, 
         with open(path,"r") as f:
             config = json.load(f)
             logging.config.dictConfig(config)
+            report_logger = logging.getLogger('eth_report')
     else:
         logging.basicConfig(level = default_level)
+        report_logger = logging.getLogger()
+    
 
 def debug(msg, *args, **kwargs):
     logging.debug(msg, *args, **kwargs)
