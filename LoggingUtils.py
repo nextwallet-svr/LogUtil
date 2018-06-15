@@ -14,7 +14,7 @@ def setup_logging(default_path = "logging.json", default_level = logging.DEBUG, 
         with open(path,"r") as f:
             config = json.load(f)
             logging.config.dictConfig(config)
-            report_logger = logging.getLogger('eth_report')
+            report_logger = logging.getLogger('report')
     else:
         logging.basicConfig(level = default_level)
         report_logger = logging.getLogger()
